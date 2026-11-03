@@ -100,17 +100,19 @@ kiro-cli --version
 
 ## Set up AWS access
 
-Your instructor will give you a **read-only IAM user** in the academy AWS account. Create an access key for it
-(IAM console → Users → your user → **Security credentials** → **Create access key** → use case *CLI*), then save it
-as an AWS CLI profile named `workshop`:
+Your instructor will give you a **read-only IAM user** (username and password) for the academy AWS account.
+Sign in with it from the CLI and save the session as a profile named `workshop`:
 
 ```bash
-aws configure --profile workshop
+aws --version                  # must be 2.32.0 or newer; run `brew upgrade awscli` if older
+aws login --profile workshop
 ```
 
-Enter your access key ID and secret, `ap-southeast-1` as the region, and `json` as the output format.
-The keys are stored in `~/.aws/credentials`, outside this repository. Never put an access key or secret in any file in this repository.
-More detail, including the read-only policies the user needs, is in [Lab 01](01-mcp/README.md#1-set-up-the-workshop-profile).
+Your browser opens. Sign in as your IAM user, then return to the terminal. When asked for the region, use `ap-southeast-1`.
+The temporary credentials are stored under `~/.aws`, outside this repository. Never put an access key or secret in any file in this repository.
+When the session expires (`ExpiredToken` errors), run the same `aws login --profile workshop` command again.
+
+If `aws login` does not work on your machine, use the access-key method in [Lab 01](01-mcp/README.md#1-set-up-the-workshop-profile) instead.
 
 Check your AWS identity:
 
