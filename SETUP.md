@@ -100,13 +100,17 @@ kiro-cli --version
 
 ## Set up AWS access
 
-Your instructor will give you access to a read-only AWS profile named `workshop`. Do not put an access key or secret in this repository.
-
-If your profile uses AWS IAM Identity Center, sign in:
+Your instructor will give you a **read-only IAM user** in the academy AWS account. Create an access key for it
+(IAM console → Users → your user → **Security credentials** → **Create access key** → use case *CLI*), then save it
+as an AWS CLI profile named `workshop`:
 
 ```bash
-aws sso login --profile workshop
+aws configure --profile workshop
 ```
+
+Enter your access key ID and secret, `ap-southeast-1` as the region, and `json` as the output format.
+The keys are stored in `~/.aws/credentials`, outside this repository. Never put an access key or secret in any file in this repository.
+More detail, including the read-only policies the user needs, is in [Lab 01](01-mcp/README.md#1-set-up-the-workshop-profile).
 
 Check your AWS identity:
 
@@ -114,7 +118,8 @@ Check your AWS identity:
 aws sts get-caller-identity --profile workshop
 ```
 
-The command must return the academy read-only student role. If it fails, stop and ask an instructor for help.
+The `Arn` in the result must be your read-only IAM user (`arn:aws:iam::<account>:user/<your-user>`).
+If it fails, stop and ask an instructor for help.
 
 The academy sandbox is in the Singapore region:
 
@@ -138,7 +143,7 @@ Also check that:
 
 - [ ] Kiro is installed and you can sign in.
 - [ ] The five commands above finish without an error.
-- [ ] Your AWS identity is the academy read-only student role.
+- [ ] Your AWS identity is your read-only IAM user.
 - [ ] Your AWS region is `ap-southeast-1`.
 - [ ] You can open the Cat's Kitchen URL shared by the instructors.
 - [ ] Your network allows `uvx` to download packages. The first download may take a few minutes.

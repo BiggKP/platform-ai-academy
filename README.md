@@ -50,7 +50,7 @@ You are evaluated on your presentation and demo. There is no certification exam.
 
 - [ ] Kiro installed and signed in ([kiro.dev](https://kiro.dev))
 - [ ] AWS CLI v2 installed, and you can sign in to the **academy sandbox** with the profile your instructors give you
-- [ ] `aws sts get-caller-identity --profile <academy-profile>` returns the read-only student role
+- [ ] `aws sts get-caller-identity --profile workshop` returns your read-only IAM user (see [Setup Guide](SETUP.md))
 - [ ] Your AWS console and CLI are set to **Asia Pacific (Singapore) `ap-southeast-1`**, where the sandbox runs
 - [ ] You can open the Cat's Kitchen URL shared in class
 - [ ] Common Course (Security & Responsible AI Use) completed
