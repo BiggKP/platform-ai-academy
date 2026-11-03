@@ -13,6 +13,7 @@ How a file is loaded is set by the `inclusion` mode in its front matter:
 | `manual` | only when you reference it (e.g. `#incident-report`) | templates you want on demand |
 
 ## 1. Read the three examples
+These are in the `.kiro/` folder you copied in Lab 01 (if you skipped it, run `cp -R example/.kiro .` from the repo root).
 In [`../.kiro/steering/`](../.kiro/steering/):
 
 | File | Mode | Purpose |
@@ -24,7 +25,7 @@ In [`../.kiro/steering/`](../.kiro/steering/):
 Note `incident-procedure.md` has a `name` and a good `description`. For `auto` files the description is how Kiro decides to load it, so write it as "use when…".
 
 ## 2. See the difference
-Open a **new** chat in `example/` and ask this **without** any hand-holding:
+Open a **new** chat in this workspace and ask this **without** any hand-holding:
 
 > The frontend shows 504 on /slowcat. Why?
 

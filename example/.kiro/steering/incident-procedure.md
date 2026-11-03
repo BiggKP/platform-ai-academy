@@ -15,8 +15,10 @@ Follow these steps in order. Do not skip to a fix.
    (e.g. frontend 504 + backend 499 = timeout cascade; frontend 502 = backend unreachable).
 5. **Dig down.** Backend error pointing at the database -> check DB log group and DB state.
    Connection timeouts -> check security groups. Connection refused -> check the DB is running.
-6. **What changed?** Query CloudTrail for write events in the 30 minutes before the first error.
-7. **Report.** Give: timeline, evidence (quote log lines with `request_id`), root cause,
+6. **Metrics.** Check ECS CPU/memory, ALB 5xx and latency, and Aurora CPU/connections for the same window
+   (use the `metrics-check` skill). Note whether any spike started before or after the first error.
+7. **What changed?** Query CloudTrail for write events in the 30 minutes before the first error.
+8. **Report.** Give: timeline, evidence (quote log lines with `request_id`), root cause,
    confidence (high/medium/low), and a suggested fix for a human to apply.
 
 Never state a root cause without at least one log line or CloudTrail event as evidence.

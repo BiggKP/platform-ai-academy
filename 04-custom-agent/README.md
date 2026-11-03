@@ -21,7 +21,7 @@ and [`incident-investigator.json`](../.kiro/agents/incident-investigator.json) (
 
 ## 2. Select the agent
 - **IDE:** open the agent selector in the Kiro chat and choose `incident-investigator`.
-- **CLI:** from `example/` run `kiro-cli chat --agent incident-investigator`.
+- **CLI:** from the repo root (the folder that contains `.kiro/`) run `kiro-cli chat --agent incident-investigator`.
 
 If it does not appear, check the file is directly in `.kiro/agents/`, the front matter is valid, then reload the window.
 (Kiro versions differ on the exact format and field names. If the file is rejected, ask an instructor and try the other format.)
@@ -32,12 +32,25 @@ Which tools do you have? Can you change anything in AWS?
 ```
 It should list CloudWatch, CloudTrail and AWS API tools, and say it is read-only.
 
+### See the scope in action
+In the same chat, ask:
+```
+I clicked เชฟแมวช้า and got a 504 in the last 10 minutes. Run scripts/window.sh 10 to get the time window.
+```
+Expected: it says it has **no shell tool**, so it cannot run the script. It may still do the search using the
+CloudWatch tool and a time range it works out itself. That is the design, not a bug.
+
+The `slow-request-check` skill from Lab 03 is still loaded, but a skill can only use the tools the agent has.
+Switch to the default agent and ask the same question: there the script runs (after you approve the command).
+To let the investigator run it, you would have to add a shell tool to `tools`. Do that only if you accept the extra risk.
+
 ## 4. Investigate (practice)
 Use the practice endpoints on the Cat's Kitchen page, then ask:
 
 1. `I clicked เชฟแมวช้า and got a 504. Explain what happened. My team is teamXX, last 10 minutes.`
 2. `/demo5xx gives 504 on the page but the backend logged 503. Why do they differ?`
 3. `Is /food failing more often than /cat? Show numbers.`
+4. `Check ECS CPU and memory, ALB 5xx and latency, and Aurora CPU and connections for the last 30 minutes. Does anything look overloaded?`
 
 Check every answer: did it quote a `request_id`? Can you find the same lines in CloudWatch yourself?
 

@@ -54,7 +54,15 @@ Both must succeed. The second should show your read-only IAM user in `Arn`
 (for example `arn:aws:iam::<account>:user/<your-user>`). If it fails, stop and ask an instructor.
 
 ## 3. Look at the config
-Open [`../.kiro/settings/mcp.json`](../.kiro/settings/mcp.json). It defines three servers:
+First copy the example Kiro config into your workspace. Run this from the **root of this repo** (the folder that contains `example/`):
+
+```bash
+cp -R example/.kiro .
+```
+
+This creates `./.kiro/` (MCP config, steering, skills and agents) next to the labs. Every lab uses this copy.
+
+Now open [`../.kiro/settings/mcp.json`](../.kiro/settings/mcp.json). It defines three servers:
 
 | Server | What it gives Kiro |
 |---|---|
@@ -71,7 +79,7 @@ Things to notice:
 > **Do not add `AWS_ACCESS_KEY_ID` or `AWS_SECRET_ACCESS_KEY` to this file.** It is easy to commit by accident.
 
 ## 4. Load it in Kiro
-1. Open the `example/` folder in Kiro.
+1. Open the **root folder of this repo** in Kiro (the folder that contains `.kiro/`, not `example/`).
 2. Open the **Kiro** panel → **MCP Servers** (or run the command *Kiro: Open workspace MCP config*).
 3. Confirm the three servers appear and show as connected. The first start can take a minute while `uvx` downloads them.
 4. If one fails, open its log/error, fix, and use the reload/restart button.

@@ -18,7 +18,8 @@ Rule of thumb: *"Kiro should always know this"* → steering. *"Kiro should know
 Because only the description is loaded up front, skills keep your context window small.
 
 ## 1. Read the example skill
-Open [`../example/.kiro/skills/logs-insights-queries/SKILL.md`](../example/.kiro/skills/logs-insights-queries/SKILL.md).
+It is in the `.kiro/` folder you copied in Lab 01 (if you skipped it, run `cp -R example/.kiro .` from the repo root).
+Open [`../.kiro/skills/logs-insights-queries/SKILL.md`](../.kiro/skills/logs-insights-queries/SKILL.md).
 
 ```
 .kiro/skills/
@@ -41,7 +42,7 @@ Skills can live in two places:
 | `~/.kiro/skills/` | All your workspaces, only on your machine |
 
 ## 2. See it activate
-Open a **new** chat in `example/` and ask:
+Open a **new** chat in this workspace and ask:
 
 > Show me the failure rate per path for the last hour. Is /food worse than /cat?
 
@@ -51,9 +52,32 @@ query it ran? Did it include `request_id` in the result?
 Then ask something unrelated, such as `What is the Aurora cluster named?`, and notice the skill is **not** used.
 
 ## 3. See what a vague description costs
-Edit the `description` of the skill to just `Queries.` and open a new chat. Ask the same question as in step 2.
-Kiro is now much less likely to pick the skill, because it has nothing to match against.
-Put the original description back afterwards.
+In `.kiro/skills/logs-insights-queries/SKILL.md`, replace the whole `description` line in the front matter with:
+
+```markdown
+description: Queries.
+```
+
+Open a **new** chat and ask the same question as in step 2:
+
+> Show me the failure rate per path for the last hour. Is /food worse than /cat?
+
+Kiro is now much less likely to use the skill, because the description gives it nothing to match against.
+It may answer without the skill, or write its own query that misses rules like "include `request_id`".
+
+Then put the original description back:
+
+```markdown
+description: Ready-made CloudWatch Logs Insights queries for Cat's Kitchen (errors per path, one request across both services, slow requests, team filter). Use when the user asks to search, count, trace or compare log lines, or asks for a Logs Insights query.
+```
+
+Open another new chat, ask again, and confirm the skill is used again.
+
+## Another example: `metrics-check`
+[`../.kiro/skills/metrics-check/SKILL.md`](../.kiro/skills/metrics-check/SKILL.md) shows a skill that
+tells Kiro which CloudWatch metrics to read for ECS, the ALB and Aurora, and how to find the real resource names first.
+Ask: `Is anything overloaded right now? Check ECS, the ALB and the database.` Notice it looks up resource names
+with read-only calls before querying metrics, and shows the namespace and dimensions it used.
 
 ## 4. Write your own skill
 Create `.kiro/skills/slow-request-check/SKILL.md`:
@@ -88,8 +112,23 @@ n="${1:-15}"
 echo "start=$(date -v-"${n}"M +%s) end=$(date +%s)"
 ```
 
-Add one line to `SKILL.md`: `To get a time window, run scripts/window.sh <minutes>.` Ask Kiro for "the last 10 minutes".
-Read the command before you approve it, like any other command.
+Then edit `slow-request-check/SKILL.md` so the skill uses the script. Add this as a new step 1 in the list, and
+renumber the other steps:
+
+```markdown
+1. If the user gives a time window like "the last 10 minutes" and no `request_id`, run
+   `bash scripts/window.sh <minutes>` to get the start and end times, and use them for the log search.
+```
+
+(`date -v` in the script works on macOS. On Linux use `date -d "-${n} min" +%s`.)
+
+**Open a new chat first.** Kiro reads a skill when the chat starts, so a chat that was already open will not see your edit.
+Then ask something that matches the skill's description, because the skill only loads when your request does:
+
+> I clicked เชฟแมวช้า and got a 504 in the last 10 minutes. Why?
+
+Kiro should load `slow-request-check` and ask to run `bash scripts/window.sh 10`. Read the command before you approve it,
+like any other command. If it never asks, check that you opened a new chat and that the request mentions a 504 or a timeout.
 
 ## Good skills vs bad skills
 - One skill, one job. Split a skill that does three things.
@@ -109,6 +148,8 @@ Read the command before you approve it, like any other command.
 |---|---|
 | Skill never triggers | Description too vague, or the folder name does not match `name`. Check the Kiro panel for loaded skills |
 | Skill not listed | File is not named exactly `SKILL.md`, or the front matter is missing `name` / `description` |
+| Edited a skill but nothing changed | Skills are read when the chat starts. Open a **new** chat after every edit |
+| Skill's script never runs | The request did not match the skill's `description`, so the skill was not loaded. Ask in words the description uses |
 | Custom agent ignores the skill | The agent's `resources` does not include `skill://.kiro/skills/**/SKILL.md` (see Lab 04) |
 
 > Skill support and menu names differ slightly between Kiro versions. If something does not match, tell an instructor.

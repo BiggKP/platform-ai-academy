@@ -10,8 +10,8 @@ Four short labs. Do them in order; each builds on the previous one.
 | [04 – Custom agent](04-custom-agent/README.md) | Bundle all three into an "incident investigator" and use it on a real incident | 30 min |
 
 ```
-example/
-├── .kiro/
+<repo root>/
+├── .kiro/                                # copied from example/.kiro
 │   ├── settings/mcp.json                 # Lab 01
 │   ├── steering/*.md                     # Lab 02
 │   ├── skills/*/SKILL.md                 # Lab 03
@@ -19,10 +19,18 @@ example/
 ├── 01-mcp/README.md
 ├── 02-steering/README.md
 ├── 03-skills/README.md
-└── 04-custom-agent/README.md
+├── 04-custom-agent/README.md
+└── example/.kiro/                        # the original files to copy from
 ```
 
-**Open `example/` as your Kiro workspace folder** so the `.kiro/` files are picked up.
+**Copy `example/.kiro` to the repo root and open the repo root as your Kiro workspace folder**,
+so the `.kiro/` files are picked up. From the root of the repo:
+
+```bash
+cp -R example/.kiro .
+```
+
+Then open the repo root folder in Kiro (not `example/`). The labs refer to this copy as `./.kiro/`.
 
 ## Before you start
 - Kiro installed and signed in
