@@ -2,7 +2,7 @@
   "mcpServers": {
     "cloudwatch": {
       "command": "uvx",
-      "args": ["awslabs.cloudwatch-mcp-server@latest"],
+      "args": ["--with", "awscrt", "awslabs.cloudwatch-mcp-server@latest"],
       "env": {
         "AWS_PROFILE": "workshop",
         "AWS_REGION": "ap-southeast-1",
@@ -11,7 +11,7 @@
     },
     "cloudtrail": {
       "command": "uvx",
-      "args": ["awslabs.cloudtrail-mcp-server@latest"],
+      "args": ["--with", "awscrt", "awslabs.cloudtrail-mcp-server@latest"],
       "env": {
         "AWS_PROFILE": "workshop",
         "AWS_REGION": "ap-southeast-1",
