@@ -66,4 +66,4 @@ Check that it applied your filter and both time zones.
 - [ ] `#incident-report` produced the template's headings
 - [ ] Your own `team.md` rule was applied
 
-Next: [Lab 03 – Custom agent](../03-custom-agent/README.md)
+Next: [Lab 03 – Skills](../03-skills/README.md)

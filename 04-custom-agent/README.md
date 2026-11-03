@@ -1,6 +1,6 @@
-# Lab 03 – Custom agent: your incident investigator
+# Lab 04 – Custom agent: your incident investigator
 
-**Goal:** package the tools (Lab 01) and rules (Lab 02) into one reusable agent, then use it on a real incident.
+**Goal:** package the tools (Lab 01), rules (Lab 02) and skills (Lab 03) into one reusable agent, then use it on a real incident.
 
 A **custom agent** is a saved role: a prompt, which tools it may use, which files it loads, and what it may do without asking.
 
@@ -12,7 +12,7 @@ and [`incident-investigator.json`](../.kiro/agents/incident-investigator.json) (
 |---|---|
 | `includeMcpJson: true` | reuse the servers from `.kiro/settings/mcp.json` (no copy-paste, no second place for credentials) |
 | `tools` | only file reading plus `@cloudwatch`, `@cloudtrail`, `@aws-api` |
-| `resources` | load all steering files at start |
+| `resources` | load all steering files at start, and make the skills available (loaded on demand) |
 | prompt | read-only, evidence for every claim, humans apply fixes |
 | `allowedTools` (CLI file) | tools it may use without asking. Read-only ones only; everything else still asks |
 | `welcomeMessage` (CLI file) | first thing it says |

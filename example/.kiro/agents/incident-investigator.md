@@ -5,6 +5,7 @@ includeMcpJson: true
 tools: ["read", "@cloudwatch", "@cloudtrail", "@aws-api"]
 resources:
   - file://.kiro/steering/**/*.md
+  - skill://.kiro/skills/**/SKILL.md
 ---
 
 You are an incident investigator for the Cat's Kitchen sandbox (ap-southeast-1).
