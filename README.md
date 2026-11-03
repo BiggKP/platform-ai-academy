@@ -3,6 +3,8 @@
 Course materials for the TPIT AI Academy program **AI for Infra Operations**, run by the Platform team.
 Use this repo during the sessions and keep it as a reference afterwards.
 
+> **Before Session 2:** Follow the [Setup Guide](SETUP.md) to install the required tools and check your AWS access.
+
 By the end of the course you will build your own AI agent with [Kiro](https://kiro.dev) that helps with a
 real ops task: security, incident investigation, or script automation.
 
