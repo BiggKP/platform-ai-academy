@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "cloudwatch": {
+      "command": "uvx",
+      "args": ["awslabs.cloudwatch-mcp-server@latest"],
+      "env": {
+        "AWS_PROFILE": "workshop",
+        "AWS_REGION": "ap-southeast-1",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "cloudtrail": {
+      "command": "uvx",
+      "args": ["awslabs.cloudtrail-mcp-server@latest"],
+      "env": {
+        "AWS_PROFILE": "workshop",
+        "AWS_REGION": "ap-southeast-1",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "aws-api": {
+      "command": "uvx",
+      "args": ["awslabs.aws-api-mcp-server@latest"],
+      "env": {
+        "AWS_API_MCP_PROFILE_NAME": "workshop",
+        "AWS_REGION": "ap-southeast-1",
+        "READ_OPERATIONS_ONLY": "true",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    }
+  }
+}
