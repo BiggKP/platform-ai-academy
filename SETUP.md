@@ -114,6 +114,13 @@ When the session expires (`ExpiredToken` errors), run the same `aws login --prof
 
 If `aws login` does not work on your machine, use the access-key method in [Lab 01](01-mcp/README.md#1-set-up-the-workshop-profile) instead.
 
+Set the AWS profile and region for your current Terminal session:
+
+```bash
+export AWS_PROFILE=workshop
+export AWS_DEFAULT_REGION=ap-southeast-1
+```
+
 Check your AWS identity:
 
 ```bash
