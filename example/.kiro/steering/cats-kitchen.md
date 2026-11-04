@@ -14,7 +14,7 @@ The frontend gives up on the backend after 3 seconds and returns 504.
 ## Logs (CloudWatch Logs, JSON, one line per request)
 - frontend: `/apps/demo-app/demo-frontend-service/sandbox`
 - backend: `/apps/demo-app/demo-backend-service/sandbox`
-- database: `/aws/rds/cluster/<cluster>/postgresql`
+- database: `/aws/rds/cluster/demo-app-db-cluster-sandbox/postgresql`
 
 Fields: `timestamp`, `service`, `level`, `request_id`, `method`, `path`, `status`, `latency_ms`.
 Frontend only: `team`, `upstream_status`, `upstream_latency_ms`, `error`.

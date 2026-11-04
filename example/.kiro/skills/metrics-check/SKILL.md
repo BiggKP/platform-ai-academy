@@ -12,12 +12,21 @@ Ask for the time window if not given. Default: the last 30 minutes. Use a period
 Keep the window narrow: wide windows are slow and mix in older incidents.
 
 ## 2. Find the real resource names
+Expected names in the sandbox (use them as a hint, but confirm they exist before querying):
+
+| Resource | Name |
+|---|---|
+| ECS cluster | `main-sandbox` |
+| ECS services | `demo-frontend-service-sandbox`, `demo-backend-service-sandbox` |
+| ALB | `main-alb-sandbox` |
+| Aurora cluster (provisioned, not Serverless) | `demo-app-db-cluster-sandbox` |
+
 Do not guess dimension values. Look them up with the `aws-api` tool (read-only calls):
 
 | Need | Call |
 |---|---|
 | ECS cluster | `ecs list-clusters` |
-| ECS services | `ecs list-services --cluster <cluster>` (frontend: `demo-frontend-service`, backend: `demo-backend-service`) |
+| ECS services | `ecs list-services --cluster <cluster>`  |
 | ALB | `elbv2 describe-load-balancers`. The CloudWatch dimension `LoadBalancer` is the part of the ARN after `loadbalancer/`, e.g. `app/<name>/<id>` |
 | Target groups | `elbv2 describe-target-groups`. The dimension `TargetGroup` is the part of the ARN after `:`, e.g. `targetgroup/<name>/<id>` |
 | Aurora cluster | `rds describe-db-clusters` (use `DBClusterIdentifier`) |
@@ -29,7 +38,7 @@ Do not guess dimension values. Look them up with the `aws-api` tool (read-only c
 | ECS | `AWS/ECS` | `ClusterName`, `ServiceName` | `CPUUtilization` (Average, Maximum), `MemoryUtilization` (Average, Maximum) |
 | ALB | `AWS/ApplicationELB` | `LoadBalancer` | `HTTPCode_ELB_5XX_Count` (Sum), `HTTPCode_Target_5XX_Count` (Sum), `TargetResponseTime` (Average, p95), `RequestCount` (Sum) |
 | ALB targets | `AWS/ApplicationELB` | `LoadBalancer`, `TargetGroup` | `UnHealthyHostCount` (Maximum), `HealthyHostCount` (Minimum) |
-| Aurora | `AWS/RDS` | `DBClusterIdentifier` | `CPUUtilization` (Average, Maximum), `DatabaseConnections` (Maximum), `FreeableMemory` (Minimum), `ServerlessDatabaseCapacity` (Average, if the cluster is Serverless v2) |
+| Aurora | `AWS/RDS` | `DBClusterIdentifier` | `CPUUtilization` (Average, Maximum), `DatabaseConnections` (Maximum), `FreeableMemory` (Minimum) |
 
 Check ECS for both the frontend and the backend service, and compare them.
 
