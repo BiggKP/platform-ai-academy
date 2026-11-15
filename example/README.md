@@ -1,6 +1,6 @@
-# Session 2 Labs – Kiro for Log Analysis & Troubleshooting
+# Labs – Kiro for Log Analysis, Troubleshooting & Scripting
 
-Four short labs. Do them in order; each builds on the previous one.
+Labs 01–04 are for Session 2 and Lab 05 is for Session 3. Do them in order; each builds on the previous one.
 
 | Lab | You will | Time |
 |---|---|---|
@@ -8,6 +8,7 @@ Four short labs. Do them in order; each builds on the previous one.
 | [02 – Steering](02-steering/README.md) | Teach Kiro about Cat's Kitchen and how we investigate | 20 min |
 | [03 – Skills](03-skills/README.md) | Give Kiro a reusable skill that it loads only when a task needs it | 20 min |
 | [04 – Custom agent](04-custom-agent/README.md) | Bundle all three into an "incident investigator" and use it on a real incident | 30 min |
+| [05 – Scripting](05-scripting/README.md) | Session 3: have Kiro write a read-only health-check script, then review it before running | 45 min |
 
 ```
 <repo root>/
@@ -20,6 +21,7 @@ Four short labs. Do them in order; each builds on the previous one.
 ├── 02-steering/README.md
 ├── 03-skills/README.md
 ├── 04-custom-agent/README.md
+├── 05-scripting/README.md
 └── example/.kiro/                        # the original files to copy from
 ```
 
