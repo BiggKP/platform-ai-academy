@@ -55,7 +55,7 @@ if out=$(aws_ elbv2 describe-load-balancers --names "$ALB" \
       --query 'LoadBalancers[0].[LoadBalancerArn,DNSName]' --output text 2>&1); then
   set -- $out; lb_arn="${1:-}"; dns="${2:-}"
 else
-  row FAIL "alb/$ALB" "cannot read: $out"
+  row FAIL "alb/$ALB" "cannot read: $out" 
 fi
 if [ -n "$lb_arn" ]; then
   tgs=$(aws_ elbv2 describe-target-groups --load-balancer-arn "$lb_arn" \
