@@ -20,11 +20,17 @@ for a script. Notice the rules: read-only by default, no secrets, arguments inst
 ## 2. Level 1 – ask for the first script
 Open a **new** chat and ask Kiro. Try this prompt, then compare with a vaguer one of your own:
 
-> Write a Bash script `check-kitchen.sh` for Cat's Kitchen in `ap-southeast-1`, profile `workshop`.
-> It must check: (1) ECS cluster `main-sandbox`, services `demo-frontend-service-sandbox` and `demo-backend-service-sandbox`:
-> running tasks vs desired tasks; (2) Aurora cluster `demo-app-db-cluster-sandbox`: status.
-> Print one line per check as OK / WARN / FAIL. Exit with code 1 if any check is FAIL.
-> Read-only AWS calls only. Do not run it; show me the script and list every aws command it uses.
+> **Role:** You are a senior DevOps/SRE engineer who writes safe, readable Bash scripts for AWS operations.
+>
+> **Context:** Cat's Kitchen runs in `ap-southeast-1` with AWS CLI profile `workshop`.
+> ECS cluster `main-sandbox` has services `demo-frontend-service-sandbox` and `demo-backend-service-sandbox`.
+> The Aurora cluster is `demo-app-db-cluster-sandbox`.
+>
+> **Task:** Write a Bash script `check-kitchen.sh` that checks (1) running tasks vs desired tasks for each ECS service,
+> and (2) the Aurora cluster status. Print one line per check as OK / WARN / FAIL.
+>
+> **Constraints:** Read-only AWS calls only. Exit with code 1 if any check is FAIL. No hardcoded credentials.
+> On errors, print a clear message and mark FAIL. Do not run the script; show me the script and list every `aws` command it uses.
 
 Why this prompt works: it names the **resources**, the **region and profile**, the **output you want**, the **exit code**, and a **safety limit**.
 
