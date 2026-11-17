@@ -10,7 +10,7 @@ reviewing carefully, and running safely*, not typing code.
 
 ## 0. Check before you start
 - You finished Labs 01 to 04, or at least copied `.kiro/` to your workspace root (see [Lab 01](../01-mcp/README.md#3-look-at-the-config)).
-- `aws sts get-caller-identity --profile workshop` works. If your session expired, run `aws login --profile workshop`.
+- `aws sts get-caller-identity --profile workshop` works. If your session expired, run `aws sso login --profile workshop`.
 - If you copied `.kiro/` before today, copy it again so you get the new steering file: `cp -R example/.kiro .`
 
 ## 1. Read the safety rules
@@ -66,24 +66,6 @@ A good script says clearly what failed. A bad one prints nothing or crashes with
 
 > Outside class hours the database is stopped, so the Aurora check should say `stopped`. That should be a WARN, not a FAIL.
 
-## 4. Level 3 – make it yours
-Add a check that matters for **your** team's work, or change how it reports. Ideas:
-
-- A one-line summary at the end: `Result: 0 FAIL, 1 WARN`
-- Write the result as JSON for another tool
-- Check one more thing: ECS task stopped reasons, or the latest deployment status
-- Ask Kiro to rewrite the script in Python (`boto3`) and compare the two. Which is easier for you to read?
-
-You can use this script as the starting point for your **Session 4** agent.
-
-## 5. Compare with the instructors' version (only after you tried)
-Instructors' reference script: [`reference/check-kitchen.sh`](reference/check-kitchen.sh). It is **not** the one right answer.
-Compare:
-
-- Which checks did Kiro include that the reference does not (and the other way round)?
-- Did Kiro use any command that changes something? If so, how did you catch it?
-- Which version is easier to read and to change?
-
 ## Good prompts for scripts
 - Name the **resource**, **region**, **profile** and **expected output**
 - Say what it must **not** do ("read-only", "do not run it")
@@ -104,8 +86,8 @@ Compare:
 ## Troubleshooting
 | Symptom | Likely cause |
 |---|---|
-| `Your session has expired` | Run `aws login --profile workshop` again |
-| `AccessDenied` on a `describe-*` call | The IAM user is missing a read-only policy. Tell an instructor |
+| `Your session has expired` | Run `aws sso login --profile workshop` again |
+| `AccessDenied` on a `describe-*` call | The SSO role is missing a read-only policy. Tell an instructor |
 | `command not found: aws` or `jq` | Install it: `brew install awscli jq` |
 | Kiro ignores the safety rules | Start a **new** chat. Steering is read when the chat starts |
 | `date: illegal option` on Linux | The script was written for macOS `date -v`. Ask Kiro for a version that works on both |
