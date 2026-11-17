@@ -100,19 +100,45 @@ kiro-cli --version
 
 ## Set up AWS access
 
-Your instructor will give you a **read-only IAM user** (username and password) for the academy AWS account.
-Sign in with it from the CLI and save the session as a profile named `workshop`:
+Your instructor will give you access through **AWS IAM Identity Center (SSO)** with a **read-only** role in the academy AWS account.
+You need three values from your instructor: the **SSO start URL**, the **SSO region**, and the **role name** (the account is selected for you).
+
+**First time only.** Create the `workshop` profile:
 
 ```bash
-aws --version                  # must be 2.32.0 or newer; run `brew upgrade awscli` if older
-aws login --profile workshop
+aws configure sso --profile workshop
 ```
 
-Your browser opens. Sign in as your IAM user, then return to the terminal. When asked for the region, use `ap-southeast-1`.
-The temporary credentials are stored under `~/.aws`, outside this repository. Never put an access key or secret in any file in this repository.
-When the session expires (`ExpiredToken` errors), run the same `aws login --profile workshop` command again.
+Answer the questions:
 
-If `aws login` does not work on your machine, use the access-key method in [Lab 01](01-mcp/README.md#1-set-up-the-workshop-profile) instead.
+| Question | Answer |
+|---|---|
+| SSO session name | `academy` (any name is fine) |
+| SSO start URL | the URL from your instructor |
+| SSO region | the region from your instructor |
+| SSO registration scopes | press Enter to accept the default |
+| Account / role | pick the academy account and the read-only role |
+| Default client Region | `ap-southeast-1` |
+| Default output format | `json` |
+
+Your browser opens to confirm the sign-in. Allow it, then return to the terminal.
+
+**Every time you start** (the session expires after a few hours):
+
+```bash
+aws sso login --profile workshop
+```
+
+Your browser opens. Sign in, then return to the terminal. The temporary credentials are stored under `~/.aws`, outside this repository.
+Never put an access key or secret in any file in this repository. When you see `ExpiredToken` or `The SSO session ... has expired`,
+run `aws sso login --profile workshop` again.
+
+Set the AWS profile and region for your current Terminal session:
+
+```bash
+export AWS_PROFILE=workshop
+export AWS_DEFAULT_REGION=ap-southeast-1
+```
 
 Check your AWS identity:
 
@@ -120,7 +146,7 @@ Check your AWS identity:
 aws sts get-caller-identity --profile workshop
 ```
 
-The `Arn` in the result must be your read-only IAM user (`arn:aws:iam::<account>:user/<your-user>`).
+The `Arn` in the result must be the academy read-only role (`arn:aws:sts::<account>:assumed-role/AWSReservedSSO_<role>_.../<you>`).
 If it fails, stop and ask an instructor for help.
 
 The academy sandbox is in the Singapore region:
@@ -145,7 +171,7 @@ Also check that:
 
 - [ ] Kiro is installed and you can sign in.
 - [ ] The five commands above finish without an error.
-- [ ] Your AWS identity is your read-only IAM user.
+- [ ] Your AWS identity is the academy read-only SSO role.
 - [ ] Your AWS region is `ap-southeast-1`.
 - [ ] You can open the Cat's Kitchen URL shared by the instructors.
 - [ ] Your network allows `uvx` to download packages. The first download may take a few minutes.
