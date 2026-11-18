@@ -1,8 +1,8 @@
 # Lab 01 – Connect Kiro to AWS with MCP
 
-**Goal:** Kiro can query CloudWatch Logs, CloudTrail and (read-only) the AWS API.
+**Goal:** Kiro can query CloudWatch Logs, CloudTrail, Cost Explorer, the AWS documentation and (read-only) the AWS API.
 
-**MCP** (Model Context Protocol) lets Kiro call external tools. Here, three AWS Labs servers run locally
+**MCP** (Model Context Protocol) lets Kiro call external tools. Here, five AWS Labs servers run locally
 on your machine and use *your* `workshop` profile. MCP does not give any access by itself:
 **IAM decides what is allowed**, and your profile is read-only.
 
@@ -45,13 +45,15 @@ cp -R example/.kiro .
 
 This creates `./.kiro/` (MCP config, steering, skills and agents) next to the labs. Every lab uses this copy.
 
-Now open [`../.kiro/settings/mcp.json`](../.kiro/settings/mcp.json). It defines three servers:
+Now open [`../.kiro/settings/mcp.json`](../.kiro/settings/mcp.json). It defines five servers:
 
 | Server | What it gives Kiro |
 |---|---|
 | `cloudwatch` | Logs Insights queries, log groups, metrics, alarms |
 | `cloudtrail` | "Who changed what, when" (management events) |
 | `aws-api` | Read-only AWS CLI calls (`describe-*`, `list-*`) |
+| `cost-explorer` | Cost and usage data (used by the cost agent in Lab 04, Extra) |
+| `aws-documentation` | Search and read AWS documentation pages |
 
 Things to notice:
 - `--with awscrt` on `cloudwatch` and `cloudtrail`: these two servers use the Python SDK (boto3), which needs `awscrt` only to read an `aws login` profile. It is harmless with SSO, so we leave it in. `aws-api` uses the AWS CLI and does not need it.
@@ -64,7 +66,7 @@ Things to notice:
 ## 4. Load it in Kiro
 1. Open the **root folder of this repo** in Kiro (the folder that contains `.kiro/`, not `example/`).
 2. Open the **Kiro** panel → **MCP Servers** (or run the command *Kiro: Open workspace MCP config*).
-3. Confirm the three servers appear and show as connected. The first start can take a minute while `uvx` downloads them.
+3. Confirm the five servers appear and show as connected. The first start can take a minute while `uvx` downloads them.
 4. If one fails, open its log/error, fix, and use the reload/restart button.
 
 ## 5. Try it
@@ -81,7 +83,7 @@ Ask: `Stop the ECS service demo-backend using the aws-api tool.`
 Expected: it **fails** (blocked by the server and/or IAM). That is the design, not a bug.
 
 ## Checkpoint
-- [ ] 3 servers connected
+- [ ] 5 servers connected
 - [ ] You got real log lines back from Kiro
 - [ ] A write request was refused
 

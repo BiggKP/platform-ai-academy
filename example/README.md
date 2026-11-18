@@ -16,7 +16,7 @@ Labs 01–04 are for Session 2 and Lab 05 is for Session 3. Do them in order; ea
 │   ├── settings/mcp.json                 # Lab 01
 │   ├── steering/*.md                     # Lab 02
 │   ├── skills/*/SKILL.md                 # Lab 03
-│   └── agents/incident-investigator.*    # Lab 04
+│   └── agents/*                          # Lab 04 (incident-investigator, Extra: cost, security)
 ├── 01-mcp/README.md
 ├── 02-steering/README.md
 ├── 03-skills/README.md

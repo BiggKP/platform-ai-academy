@@ -5,6 +5,11 @@
   "includeMcpJson": true,
   "tools": ["fs_read", "@cloudwatch", "@cloudtrail", "@aws-api"],
   "allowedTools": ["fs_read", "@cloudwatch", "@cloudtrail"],
-  "resources": ["file://.kiro/steering/**/*.md", "skill://.kiro/skills/**/SKILL.md"],
+  "resources": [
+    "file://.kiro/steering/cats-kitchen.md",
+    "file://.kiro/steering/incident-procedure.md",
+    "file://.kiro/steering/incident-report.md",
+    "skill://.kiro/skills/**/SKILL.md"
+  ],
   "welcomeMessage": "Incident investigator ready (read-only). Tell me the time window and your team."
 }

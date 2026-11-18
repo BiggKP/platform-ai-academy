@@ -4,7 +4,9 @@ description: Read-only investigator for Cat's Kitchen incidents. Searches CloudW
 includeMcpJson: true
 tools: ["read", "@cloudwatch", "@cloudtrail", "@aws-api"]
 resources:
-  - file://.kiro/steering/**/*.md
+  - file://.kiro/steering/cats-kitchen.md
+  - file://.kiro/steering/incident-procedure.md
+  - file://.kiro/steering/incident-report.md
   - skill://.kiro/skills/**/SKILL.md
 ---
 
